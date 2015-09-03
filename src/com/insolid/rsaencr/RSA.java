@@ -3,14 +3,14 @@ package com.insolid.rsaencr;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-public class RSA {
+public final class RSA {
     private static final BigInteger ONE = BigInteger.valueOf(1);
     private static final SecureRandom random = new SecureRandom();
 
-    private BigInteger modulus = null;
-    private BigInteger phi = null;
-    private BigInteger publickey = null;
-    private BigInteger privatekey = null;
+    private final BigInteger modulus;
+    private final BigInteger phi;
+    private final BigInteger publickey;
+    private final BigInteger privatekey;
 
     public RSA(final int bits) {
         BigInteger primeOne = new BigInteger(bits/2, 100, random);
@@ -25,14 +25,14 @@ public class RSA {
         this(256);
     }
 
-    public final BigInteger encrypt(BigInteger message) {
+    public BigInteger encrypt(BigInteger message) {
         return message.modPow(publickey, modulus);
     }
 
-    public final BigInteger decrypt(BigInteger message) {
+    public BigInteger decrypt(BigInteger message) {
         return message.modPow(privatekey, modulus);
     }
 
-    public final BigInteger getPublickey() { return publickey; }
-    public final BigInteger getModulus() { return modulus; }
+    public BigInteger getPublickey() { return publickey; }
+    public BigInteger getModulus() { return modulus; }
 }
