@@ -32,4 +32,7 @@ public class RSA {
     public final BigInteger decrypt(BigInteger message) {
         return message.modPow(privatekey, modulus);
     }
+
+    public final BigInteger getPublickey() { return publickey; }
+    public final BigInteger getModulus() { return modulus; }
 }
