@@ -16,13 +16,13 @@ public class Main {
         int length = args.length;
         if(length != 2) return;
 
-        RSA rsa = new RSA(Integer.valueOf(args[0]));
-        BigInteger message = BigInteger.valueOf(Integer.valueOf(args[1]));
+        RSA rsa = RSA.getInstance(Integer.parseInt(args[0]));
+        String message = args[1];
         BigInteger encrypted = rsa.encrypt(message);
-        BigInteger decrypted = rsa.decrypt(encrypted);
+        String encodedMessage = Base64Code.encode(encrypted);
+        BigInteger decodedMessage = Base64Code.decode(encodedMessage);
+        String decrypted = rsa.decrypt(decodedMessage);
 
-        System.out.println(message);
-        System.out.println(encrypted);
-        System.out.println(decrypted);
+        System.out.println(message + "\n" + encrypted + "\n" + encodedMessage + "\n" + decodedMessage + "\n" + decrypted);
     }
 }
