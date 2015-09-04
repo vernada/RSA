@@ -50,21 +50,23 @@ public final class RSA {
     /**
     *Encrypting a string message.
     *@param message string to encrypt
-    *@return BigInteger of encrypted message.
+    *@return String of encrypted message in Base64.
     */
-    public BigInteger encrypt(String message) {
+    public String encrypt(String message) {
         BigInteger biMessage = new BigInteger(message.getBytes());
-        return biMessage.modPow(publickey, modulus);
+        biMessage = biMessage.modPow(publickey, modulus);
+        return Base64Code.encode(biMessage);
     }
 
     /**
     *Decrypting an encoded BigInteger message.
-    *@param message encrypted in BigInteger to decrypt
+    *@param message is an encrypted string in Base64 to decrypt
     *@return a string of decrypted message
     */
-    public String decrypt(BigInteger message) {
-        message = message.modPow(privatekey, modulus);
-        return new String(message.toByteArray());
+    public String decrypt(String message) {
+        BigInteger biMessage = Base64Code.decode(message);
+        biMessage = biMessage.modPow(privatekey, modulus);
+        return new String(biMessage.toByteArray());
     }
 
     public BigInteger getPublickey() { return publickey; }
